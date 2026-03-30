@@ -1,16 +1,24 @@
-name = "staroverlay-worker-dev"
+name = "so-upload-worker"
 main = "src/index.ts"
-compatibility_date = "2023-01-01"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
 
-route = "worker.dev.staroverlay.com"
-vars = { ENVIRONMENT = "dev" }
-
-[[kv_namespaces]]
-binding = "KV"
-id = "139f4dfc30184d1eb2b7490da688a6c8"
-preview_id = "139f4dfc30184d1eb2b7490da688a6c8"
+[vars]
+ENVIRONMENT = "production"
+# UPLOAD_JWT is set via `wrangler secret put UPLOAD_JWT`
+# UPLOAD_SECRET is set via `wrangler secret put UPLOAD_SECRET`
 
 [[r2_buckets]]
-binding = "BUCKET"
-bucket_name = "staroverlay-bucket-dev"
-preview_bucket_name = "staroverlay-bucket-dev"
+binding = "R2_BUCKET"
+bucket_name = "so-prod-user-content"
+preview_bucket_name = "so-dev-user-content"
+
+[observability]
+enabled = true
+
+# Rate limiting (optional, Cloudflare paid plan)
+# [[unsafe.bindings]]
+# name = "RATE_LIMITER"
+# type = "ratelimit"
+# namespace_id = "1001"
+# simple = { limit = 100, period = 60 }
