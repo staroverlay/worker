@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { handleUploadPart } from "./routes/upload";
+import { handleThumbnailUpload } from "./routes/thumbnail";
 import { handleInitiate, handleComplete, handleAbort, handleDelete } from "./routes/admin";
 import { handleServe } from "./routes/serve";
 import { error, notFound } from "./response";
@@ -50,6 +51,7 @@ app.get("/usercontent/:userId/:fileId/:thumbnail?", async (c) => {
 // ── Client upload endpoints ────────────────────────────────────────────────
 // Unauthenticated
 app.put("/upload/part", (c) => handleUploadPart(c));
+app.post("/thumbnail", (c) => handleThumbnailUpload(c));
 
 app.post("/admin/initiate", (c) => handleInitiate(c));
 app.post("/admin/complete", (c) => handleComplete(c));
