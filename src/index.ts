@@ -20,7 +20,7 @@ app.use("*", cors({
     maxAge: 86400,
 }));
 
-// ── Env Check ──────────────────────────────────────────────────────────────────
+// Env Check
 app.use("*", async (c, next) => {
     if (!c.env.UPLOAD_SECRET) {
         return error("internal_error", "UPLOAD_SECRET is not set", 500);
@@ -33,10 +33,10 @@ app.use("*", async (c, next) => {
     return next();
 });
 
-// ── Health check ──────────────────────────────────────────────────────────
+// Health check
 app.get("/health", (c) => c.json({ status: "ok", ts: Date.now() }));
 
-// ── Public file serving ───────────────────────────────────────────────────
+// Public file serving
 // GET /usercontent/<userId>/<fileId>[/thumbnail]
 app.get("/usercontent/:userId/:fileId/:thumbnail?", async (c) => {
     // Reconstruct key to be compatible with existing logic: usercontent/userId/fileId[/thumbnail]
@@ -48,7 +48,7 @@ app.get("/usercontent/:userId/:fileId/:thumbnail?", async (c) => {
     return handleServe(c, key);
 });
 
-// ── Client upload endpoints ────────────────────────────────────────────────
+// Client upload endpoints 
 // Unauthenticated
 app.put("/upload/part", (c) => handleUploadPart(c));
 app.post("/thumbnail", (c) => handleThumbnailUpload(c));
