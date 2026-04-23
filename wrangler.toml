@@ -20,7 +20,7 @@ bucket_name = "staroverlay-uploads-bucket"
 # DEVELOPMENT
 # ======================
 [env.development]
-name = "staroverlay-uploads-worker-dev"
+name = "uploads-worker-dev"
 
 [env.development.vars]
 ENVIRONMENT = "development"
